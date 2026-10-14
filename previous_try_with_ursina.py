@@ -2,12 +2,23 @@ from ursina import *
 
 app = Ursina(title = "Effigies")
 
+
 island = Entity(
     model=Cylinder(resolution=8),
     scale=(8, 1, 8),
     color=color.green,
-    texture="white_cube"
+    texture="white_cube",
+    shader="lit_with_shadows_shader",
+    collider='mesh'
 )
+
+# Sonnenlicht
+sun = DirectionalLight()
+sun.look_at(Vec3(1, -2, -1))
+sun.shadows = True
+
+# Grundbeleuchtung, damit Schatten nicht komplett schwarz sind
+AmbientLight(color=color.rgba(100, 100, 100, 255))
 
 # Maussteuerung aktivieren und Cursor verstecken
 mouse.locked = True
